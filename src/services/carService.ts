@@ -21,6 +21,18 @@ class CarService extends Service<Car> {
     if (!car) throw new Error('Object not found');
     return car;
   };
+
+  update = async (id: string, body: Car):
+  Promise<Car | ServiceError | null> => {
+    if (id.length < 24) return null;
+    const parsed = CarSchema.safeParse(body);
+    if (!parsed.success) {
+      return { error: parsed.error };
+    }
+    const car = await this.model.update(id, body);
+    if (!car) throw new Error('Object not found');
+    return car;
+  };
 }
 
 export default CarService;

@@ -29,7 +29,7 @@ const carSchema = new Schema<Car>({
     type: Number,
     required: true,
   },
-});
+}, { versionKey: false });
 
 const carSchemaModel = model<Car>('Car', carSchema);
 

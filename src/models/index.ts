@@ -19,8 +19,8 @@ abstract class MongoModel<T> implements Model<T> {
   
   async update(id: string, body: T): Promise<T | null> {
     if (!isValidObjectId(id)) return null;
-    return this.model.findOneAndUpdate(
-      { _id: id }, 
+    return this.model.findByIdAndUpdate(
+      id, 
       body,
       { returnOriginal: false },
     );  
