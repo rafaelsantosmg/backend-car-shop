@@ -42,11 +42,13 @@ class CarController extends Controller<Car> {
     const { id } = req.params;
     try {
       const cars = await this.service.readOne(id);
+      console.log(cars);
       return cars
         ? res.json(cars)
-        : res.status(404).json({ error: this.errors.notFound });
-    } catch (error) {
-      return res.status(500).json({ error: this.errors.internal });
+        : res.status(400).json({ error: this.errors.isIsNotValid });
+    } catch (err) {
+      console.log('cat');
+      return res.status(404).json({ error: this.errors.notFound });
     }
   };
 
@@ -76,7 +78,7 @@ class CarController extends Controller<Car> {
       return cars
         ? res.json(cars)
         : res.status(404).json({ error: this.errors.notFound });
-    } catch (error) {
+    } catch (err) {
       return res.status(500).json({ error: this.errors.internal });
     }
   };
