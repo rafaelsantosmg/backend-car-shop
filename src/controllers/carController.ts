@@ -24,7 +24,7 @@ class CarController extends Controller<Car> {
     try {
       const cars = await this.service.create(body);
       if (!cars) {
-        return res.status(400).json({ error: this.errors.internal });
+        return res.status(500).json({ error: this.errors.internal });
       }
       if ('error' in cars) {
         return res.status(400).json(cars);
@@ -77,12 +77,12 @@ class CarController extends Controller<Car> {
   ): Promise<typeof res> => {
     const { id } = req.params;
     try {
-      const cars = await this.service.delete(id);
-      return cars
-        ? res.json(cars)
-        : res.status(404).json({ error: this.errors.notFound });
+      const car = await this.service.delete(id);
+      return car
+        ? res.status(204).send(car)
+        : res.status(400).json({ error: this.errors.isIsNotValid });
     } catch (err) {
-      return res.status(500).json({ error: this.errors.internal });
+      return res.status(404).json({ error: this.errors.notFound });
     }
   };
 }
