@@ -2,7 +2,9 @@ import { expect } from 'chai';
 import sinon, { SinonStub } from 'sinon';
 import { Model } from 'mongoose';
 import CarService from '../../../services/carService';
-import mocks from '../mocks/carMocks';
+import MotorcycleService from '../../../services/motorcycleService';
+import { Motorcycle } from '../../../interfaces/MotorcycleInterface';
+import mocks from '../mocks';
 
 describe('Teste da camada Car Service', () => {
   
@@ -33,8 +35,8 @@ describe('Teste da camada Car Service', () => {
 
     it('Valida se busca Car foi feita com sucesso', async () => {
       const carService = new CarService();
-      const findCar = await carService.read();
-      expect(findCar).to.be.deep.equal([mocks.mockCar]);
+      const carFind = await carService.read();
+      expect(carFind).to.be.deep.equal([mocks.mockCar]);
     })
   })
 
@@ -49,8 +51,8 @@ describe('Teste da camada Car Service', () => {
 
     it('Valida se busca por 1 Car foi feita com sucesso', async () => {
       const carService = new CarService();
-      const findCar = await carService.readOne(mocks.mockId);
-      expect(findCar).to.be.deep.equal(mocks.mockCar);
+      const carFind = await carService.readOne(mocks.mockCarId);
+      expect(carFind).to.be.deep.equal(mocks.mockCar);
     })
   })
 
@@ -65,8 +67,8 @@ describe('Teste da camada Car Service', () => {
 
     it('Valida se busca por 1 Car foi feita com sucesso', async () => {
       const carService = new CarService();
-      const updateCar = await carService.update(mocks.mockId, mocks.mockCar);
-      expect(updateCar).to.be.deep.equal(mocks.mockCar);
+      const carUpdate = await carService.update(mocks.mockCarId, mocks.mockCar);
+      expect(carUpdate).to.be.deep.equal(mocks.mockCar);
     })
   })
 
@@ -81,8 +83,93 @@ describe('Teste da camada Car Service', () => {
 
     it('Valida se busca por 1 Car foi feita com sucesso', async () => {
       const carService = new CarService();
-      const deleteCar = await carService.delete(mocks.mockId);
-      expect(deleteCar).to.be.deep.equal(1);
+      const carDelete = await carService.delete(mocks.mockCarId);
+      expect(carDelete).to.be.deep.equal(1);
+    })
+  })
+})
+
+describe('Teste da camada Motorcycle Model', () => {
+  
+  describe('testa a função create Motorcycle', () => {
+    before(() => {
+      sinon.stub(Model, 'create').resolves(mocks.mockMotorcycle)
+    })
+
+    after(() => {
+      (Model.create as SinonStub).restore()
+    })
+    
+    it('Valida se Motorcycle foi criado com sucesso', async () => {
+      const motorcycleService = new MotorcycleService();
+      const motorcycleCreate = await motorcycleService
+        .create(mocks.mockMotorcycleBody as Motorcycle);
+      expect(motorcycleCreate).to.be.deep.equal(mocks.mockMotorcycle);
+    })
+  })
+
+  describe('testa a função find Motorcycle', () => {
+    before(() => {
+      sinon.stub(Model, 'find').resolves([mocks.mockMotorcycle])
+    })
+
+    after(() => {
+      (Model.find as SinonStub).restore()
+    })
+    
+    it('Valida se busca Motorcycle foi feita com sucesso', async () => {
+      const motorcycleService = new MotorcycleService();
+      const motorcycleFind = await motorcycleService.read();
+      expect(motorcycleFind).to.be.deep.equal([mocks.mockMotorcycle]);
+    })
+  })
+
+  describe('testa a função findOne Motorcycle', () => {
+    before(() => {
+      sinon.stub(Model, 'findOne').resolves(mocks.mockMotorcycle)
+    })
+
+    after(() => {
+      (Model.findOne as SinonStub).restore()
+    })
+    
+    it('Valida se busca por 1 Motorcycle foi feita com sucesso', async () => {
+      const motorcycleService = new MotorcycleService();
+      const motorcycleFind = await motorcycleService.readOne(mocks.mockMotorcycleId);
+      expect(motorcycleFind).to.be.deep.equal(mocks.mockMotorcycle);
+    })
+  })
+
+  describe('testa a função update Motorcycle', () => {
+    before(() => {
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(mocks.mockMotorcycle)
+    })
+
+    after(() => {
+      (Model.findByIdAndUpdate as SinonStub).restore()
+    })
+    
+    it('Valida se busca por 1 Motorcycle foi feita com sucesso', async () => {
+      const motorcycleService = new MotorcycleService();
+      const motorcycleUpdate = await motorcycleService
+        .update(mocks.mockMotorcycleId, mocks.mockMotorcycleBody as Motorcycle);
+      expect(motorcycleUpdate).to.be.deep.equal(mocks.mockMotorcycle);
+    })
+  })
+
+  describe('testa a função delete Motorcycle', () => {
+    before(() => {
+      sinon.stub(Model, 'findOneAndDelete').resolves(1)
+    })
+
+    after(() => {
+      (Model.findOneAndDelete as SinonStub).restore()
+    })
+    
+    it('Valida se busca por 1 Motorcycle foi feita com sucesso', async () => {
+      const motorcycleService = new MotorcycleService();
+      const motorcycleDelete = await motorcycleService.delete(mocks.mockMotorcycleId);
+      expect(motorcycleDelete).to.be.deep.equal(1);
     })
   })
 })
