@@ -18,17 +18,14 @@ class CarController extends Controller<Car> {
 
   create = async (
     req: RequestWithBody<Car>,
-    res: Response<Car | ResponseError>,
+    res: Response<Car | ResponseError | null>,
   ): Promise<typeof res> => {
     const { body } = req;
     try {
       const cars = await this.service.create(body);
-      if (!cars) {
-        return res.status(500).json({ error: this.errors.internal });
-      }
-      if ('error' in cars) {
+      if (cars && 'error' in cars) {
         return res.status(400).json(cars);
-      }
+      } 
       return res.status(201).json(cars);
     } catch (err) {
       return res.status(400).json({ error: this.errors.internal });
