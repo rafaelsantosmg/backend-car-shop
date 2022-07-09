@@ -5,6 +5,7 @@ import CarService from '../../../services/carService';
 import mocks from '../mocks/carMocks';
 
 describe('Teste da camada Car Service', () => {
+  
   describe('testa a função create Car', () => {
     before(() => {
       sinon.stub(Model, 'create').resolves(mocks.mockCar)

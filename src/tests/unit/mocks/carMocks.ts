@@ -1,5 +1,3 @@
-import { Car } from "../../../interfaces/CarInterface"
-
 const mockCar = {
   "model": "Ferrari Maranello",
   "year": 1963,
@@ -10,7 +8,7 @@ const mockCar = {
   "_id": "62c80c75dd0f2f5ec1e50b0f",
 }
 
-const mockCarBody: Car = {
+const mockCarBody = {
   "model": "Ferrari Maranello",
   "year": 1963,
   "color": "red",
