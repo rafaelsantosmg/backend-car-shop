@@ -5,6 +5,7 @@ import CarService from '../../../services/carService';
 import MotorcycleService from '../../../services/motorcycleService';
 import { Motorcycle } from '../../../interfaces/MotorcycleInterface';
 import mocks from '../mocks';
+import { Car } from '../../../interfaces/CarInterface';
 
 describe('Teste da camada Car Service', () => {
   
@@ -22,7 +23,14 @@ describe('Teste da camada Car Service', () => {
       const carCreate = await carService.create(mocks.mockCarBody);
       expect(carCreate).to.be.deep.equal(mocks.mockCar);
     })
+
+    it('Valida se houve erro na requisição', async () => {
+      const carService = new CarService();
+      const carCreate = await carService.create({} as Car);
+      expect(carCreate).to.haveOwnProperty('error');
+    })
   })
+
 
   describe('testa a função find Car', () => {
     before(() => {
@@ -70,6 +78,13 @@ describe('Teste da camada Car Service', () => {
       const carUpdate = await carService.update(mocks.mockCarId, mocks.mockCar);
       expect(carUpdate).to.be.deep.equal(mocks.mockCar);
     })
+
+    it('Valida se houve erro na requisição', async () => {
+      const carService = new CarService();
+      const carCreate = await carService
+        .update(mocks.mockCarId, {} as Car);
+      expect(carCreate).to.haveOwnProperty('error');
+    })
   })
 
   describe('testa a função delete Car', () => {
@@ -105,6 +120,12 @@ describe('Teste da camada Motorcycle Model', () => {
       const motorcycleCreate = await motorcycleService
         .create(mocks.mockMotorcycleBody as Motorcycle);
       expect(motorcycleCreate).to.be.deep.equal(mocks.mockMotorcycle);
+    })
+
+    it('Valida se houve erro na requisição', async () => {
+      const motorcycleService = new MotorcycleService();
+      const motorcycleCreate = await motorcycleService.create({} as Motorcycle);
+      expect(motorcycleCreate).to.haveOwnProperty('error');
     })
   })
 
@@ -154,6 +175,13 @@ describe('Teste da camada Motorcycle Model', () => {
       const motorcycleUpdate = await motorcycleService
         .update(mocks.mockMotorcycleId, mocks.mockMotorcycleBody as Motorcycle);
       expect(motorcycleUpdate).to.be.deep.equal(mocks.mockMotorcycle);
+    })
+
+    it('Valida se houve erro na requisição', async () => {
+      const motorcycleService = new MotorcycleService();
+      const motorcycleCreate = await motorcycleService
+        .update(mocks.mockMotorcycleId, {} as Motorcycle);
+      expect(motorcycleCreate).to.haveOwnProperty('error');
     })
   })
 

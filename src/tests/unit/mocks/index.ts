@@ -17,6 +17,14 @@ const mockCarBody = {
   "seatsQty": 2,
 }
 
+const mockCarBodyError = {
+  "model": "Ferrari Maranello",
+  "year": 1963,
+  "color": "red",
+  "doorsQty": 2,
+  "seatsQty": 2,
+}
+
 const mockCarId = "62c80c75dd0f2f5ec1e50b0f"
 
 const mockMotorcycle = {
@@ -43,6 +51,7 @@ const mockMotorcycleId = "62c80c75dd0f2f5ec1e50b0f"
 export default {
   mockCar,
   mockCarBody,
+  mockCarBodyError,
   mockCarId,
   mockMotorcycle,
   mockMotorcycleBody,

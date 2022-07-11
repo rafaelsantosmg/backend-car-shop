@@ -26,8 +26,9 @@ class CarController extends Controller<Car> {
       if (cars && 'error' in cars) {
         return res.status(400).json(cars);
       } 
-      return res.status(201).json(cars);
+      return res.status(200).json(cars);
     } catch (err) {
+      console.log('CAT', err);
       return res.status(400).json({ error: this.errors.internal });
     }
   };
@@ -62,7 +63,7 @@ class CarController extends Controller<Car> {
       if ('error' in car) {
         return res.status(400).json(car);
       }
-      return res.status(200).json(car);
+      return res.status(201).json(car);
     } catch (error) {
       return res.status(404).json({ error: this.errors.notFound });
     }
